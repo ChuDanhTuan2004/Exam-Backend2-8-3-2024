@@ -14,5 +14,4 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
     Page<Employee> findAllByNameContaining(String name);
     Page<Employee> findAllByAddressContaining(String address);
     Page<Employee> findAllByAgeContaining (int age);
-    Page<Employee> findAll(Pageable pageable);
 }

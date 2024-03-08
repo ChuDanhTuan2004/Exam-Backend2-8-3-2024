@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -21,12 +22,8 @@ public class EmployeeController {
     IEmployeeRepository employeeRepository;
 
     @GetMapping("")
-    public ResponseEntity findAll(@PageableDefault(value = 5) Pageable pageable) {
-        Page<Employee> employees = employeeRepository.findAll(pageable);
-        if (employees.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity(employees, HttpStatus.OK);
+    public ResponseEntity findAll() {
+        return new ResponseEntity(employeeRepository.findAll(), HttpStatus.OK);
     }
 
 
@@ -56,17 +53,17 @@ public class EmployeeController {
     }
 
     @GetMapping("/findName")
-    public ResponseEntity findName(@RequestParam String name, @PageableDefault(value = 5) Pageable pageable) {
-        return new ResponseEntity((Page<Employee>) employeeRepository.findAllByNameContaining(name), HttpStatus.OK);
+    public ResponseEntity findName(@RequestParam String name) {
+        return new ResponseEntity(employeeRepository.findAllByNameContaining(name), HttpStatus.OK);
     }
 
     @GetMapping("/findAddress")
-    public ResponseEntity findAddress(@RequestParam String address, @PageableDefault(value = 5) Pageable pageable) {
-        return new ResponseEntity((Page<Employee>) employeeRepository.findAllByAddressContaining(address), HttpStatus.OK);
+    public ResponseEntity findAddress(@RequestParam String address) {
+        return new ResponseEntity(employeeRepository.findAllByAddressContaining(address), HttpStatus.OK);
     }
 
     @GetMapping("/findAge")
-    public ResponseEntity findAge(@RequestParam int age, @PageableDefault(value = 5) Pageable pageable) {
-        return new ResponseEntity((Page<Employee>) employeeRepository.findAllByAgeContaining(age), HttpStatus.OK);
+    public ResponseEntity findAge(@RequestParam int age) {
+        return new ResponseEntity(employeeRepository.findAllByAgeContaining(age), HttpStatus.OK);
     }
 }
